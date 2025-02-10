@@ -1,9 +1,5 @@
-import Quiz from "@/features/quiz/Quiz";
+import { redirect } from 'next/navigation'
 
 export default function Home() {
-  return (
-    <div>
-      <Quiz/>
-    </div>
-  );
+  redirect('/categories')
 }

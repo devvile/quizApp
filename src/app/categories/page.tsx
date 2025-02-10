@@ -4,7 +4,7 @@ import { Layout } from "@/components/shared/Layout"
 import { BackButton } from "@/features/categories/components/BackButton"
 import { CategoryHeader } from "@/features/categories/components/CategoryHeader"
 import { CategoryList } from "@/features/categories/components/CategoryList"
-import { categories } from "@/data/categories"
+import { categories } from "../../../data/categories"
 
 export default function CategoriesPage() {
   const router = useRouter()

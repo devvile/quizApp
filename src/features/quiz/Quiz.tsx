@@ -6,7 +6,7 @@ import { QuizOption } from "./components/QuizOption"
 import { questions as originalQuestions } from "../../../data/questions"
 import { quizConfig } from "../../../config"
 import ScoreBoard from "./scoreboard/ScoreBoard"
-import { Layout } from "../../components/Layout"
+import { Layout } from "../../components/shared/Layout"
 
 export default function Quiz() {
   const [currentQuestion, setCurrentQuestion] = useState(0)

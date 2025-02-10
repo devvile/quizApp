@@ -4,8 +4,8 @@ import { BackButton } from "./BackButton"
 import { Header } from "./Header"
 import { QuizList } from "./QuizList"
 import { ActionBar } from "./ActionBar"
-import { quizzes } from "../../../data/quizzes"
-import { Layout } from "../Layout"
+import { quizzes } from "../../../../data/quizzes"
+import { Layout } from "../../../components/shared/Layout"
 
 export default function QuizSelectionPage() {
   const [selectedQuizzes, setSelectedQuizzes] = useState<string[]>([])
