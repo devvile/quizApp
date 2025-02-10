@@ -17,7 +17,6 @@ export function QuizHeader({ questionText, currentQuestion, totalQuestions, time
         <ArrowLeft className="h-6 w-6" />
       </Button>
       <h1 className="text-2xl font-semibold mb-2">{questionText}</h1>
-      <p className="text-gray-500">Answer and get points</p>
       <div className="mt-4 flex items-center justify-between">
         <p className="text-sm text-gray-600">
           Step {currentQuestion + 1} of {totalQuestions}

@@ -4,12 +4,13 @@ import { Button } from "@/components/ui/button"
 import { QuizHeader } from "./QuizHeader"
 import { QuizOption } from "./QuizOption"
 import { questions } from "../../../data/questions"
+import { quizConfig } from "../../../config"
 
 export default function Quiz() {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null)
   const [isAnswered, setIsAnswered] = useState(false)
-  const [timeLeft, setTimeLeft] = useState(questions[0].timeLimit)
+  const [timeLeft, setTimeLeft] = useState(quizConfig.timePerQuestion)
 
   useEffect(() => {
     if (timeLeft > 0 && !isAnswered) {
@@ -33,7 +34,7 @@ export default function Quiz() {
       setCurrentQuestion((prev) => prev + 1)
       setSelectedAnswer(null)
       setIsAnswered(false)
-      setTimeLeft(questions[currentQuestion + 1].timeLimit)
+      setTimeLeft(quizConfig.timePerQuestion)
     }
   }
 
