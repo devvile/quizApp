@@ -3,14 +3,25 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { QuizHeader } from "./QuizHeader"
 import { QuizOption } from "./QuizOption"
-import { questions } from "../../../data/questions"
+import { questions as originalQuestions } from "../../../data/questions"
 import { quizConfig } from "../../../config"
+import ScoreBoard from "./ScoreBoard/ScoreBoard"
+import { Layout } from "../Layout"
 
 export default function Quiz() {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null)
   const [isAnswered, setIsAnswered] = useState(false)
   const [timeLeft, setTimeLeft] = useState(quizConfig.timePerQuestion)
+  const [correctAnswers, setCorrectAnswers] = useState(0)
+  const [isQuizFinished, setIsQuizFinished] = useState(false)
+  const [questions, setQuestions] = useState(originalQuestions)
+
+  useEffect(() => {
+    const shuffledQuestions = [...originalQuestions]
+      .sort(() => Math.random() - 0.5)
+    setQuestions(shuffledQuestions)
+  }, [])
 
   useEffect(() => {
     if (timeLeft > 0 && !isAnswered) {
@@ -27,49 +38,75 @@ export default function Quiz() {
     if (isAnswered) return
     setSelectedAnswer(index)
     setIsAnswered(true)
+    if (index === questions[currentQuestion].correctAnswer) {
+      setCorrectAnswers(prev => prev + 1)
+    }
   }
 
   const handleNext = () => {
     if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion((prev) => prev + 1)
+      setCurrentQuestion(prev => prev + 1)
       setSelectedAnswer(null)
       setIsAnswered(false)
       setTimeLeft(quizConfig.timePerQuestion)
+    } else {
+      setIsQuizFinished(true)
     }
   }
 
+  const handleTryAgain = () => {
+    setCurrentQuestion(0)
+    setSelectedAnswer(null)
+    setIsAnswered(false)
+    setTimeLeft(quizConfig.timePerQuestion)
+    setCorrectAnswers(0)
+    setIsQuizFinished(false)
+  }
+
+  if (isQuizFinished) {
+    return (
+      <ScoreBoard
+        correctAnswers={correctAnswers}
+        totalQuestions={questions.length}
+        onTryAgain={handleTryAgain}
+      />
+    )
+  }
+
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white rounded-3xl shadow-lg p-6">
-        <QuizHeader
-          questionText={questions[currentQuestion].text}
-          currentQuestion={currentQuestion}
-          totalQuestions={questions.length}
-          timeLeft={timeLeft}
-        />
+    <Layout>
+      <div className="min-h-screen justify-center mt-8 p-4">
+        <div className="w-full max-w-md bg-white sp-6">
+          <QuizHeader
+            questionText={questions[currentQuestion].text}
+            currentQuestion={currentQuestion}
+            totalQuestions={questions.length}
+            timeLeft={timeLeft}
+          />
 
-        <div className="space-y-3">
-          {questions[currentQuestion].options.map((option, index) => (
-            <QuizOption
-              key={index}
-              option={option}
-              index={index}
-              isSelected={selectedAnswer === index}
-              isAnswered={isAnswered}
-              isCorrect={index === questions[currentQuestion].correctAnswer}
-              onClick={() => handleAnswerClick(index)}
-            />
-          ))}
+          <div className="space-y-3">
+            {questions[currentQuestion].options.map((option, index) => (
+              <QuizOption
+                key={index}
+                option={option}
+                index={index}
+                isSelected={selectedAnswer === index}
+                isAnswered={isAnswered}
+                isCorrect={index === questions[currentQuestion].correctAnswer}
+                onClick={() => handleAnswerClick(index)}
+              />
+            ))}
+          </div>
+
+          <Button
+            className="w-full mt-6 bg-gray-900 text-white hover:bg-gray-800"
+            onClick={handleNext}
+            disabled={!isAnswered}
+          >
+            Next
+          </Button>
         </div>
-
-        <Button
-          className="w-full mt-6 bg-gray-900 text-white hover:bg-gray-800"
-          onClick={handleNext}
-          disabled={!isAnswered}
-        >
-          Next
-        </Button>
       </div>
-    </div>
+    </Layout>
   )
 }
