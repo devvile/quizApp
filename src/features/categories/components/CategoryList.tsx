@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { Category } from "@/types/categories"
+import { Category } from "../../../types/Categories"
 
 interface CategoryListProps {
   categories: Category[]

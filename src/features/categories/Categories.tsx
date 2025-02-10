@@ -1,7 +1,7 @@
 "use client"
-import { BackButton } from "./BackButton"
-import { CategoryHeader } from "./CategoryHeader"
-import { CategoryList } from "./CategoryList"
+import { BackButton } from "./components/BackButton"
+import { CategoryHeader } from "./components/CategoryHeader"
+import { CategoryList } from "./components/CategoryList"
 import { categories } from "../../../data/categories"
 
 export default function CategoriesPage() {
