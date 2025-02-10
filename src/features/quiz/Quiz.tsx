@@ -1,12 +1,12 @@
 "use client"
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { QuizHeader } from "./QuizHeader"
-import { QuizOption } from "./QuizOption"
+import { QuizHeader } from "./components/QuizHeader"
+import { QuizOption } from "./components/QuizOption"
 import { questions as originalQuestions } from "../../../data/questions"
 import { quizConfig } from "../../../config"
-import ScoreBoard from "./ScoreBoard/ScoreBoard"
-import { Layout } from "../Layout"
+import ScoreBoard from "./scoreboard/ScoreBoard"
+import { Layout } from "../../components/Layout"
 
 export default function Quiz() {
   const [currentQuestion, setCurrentQuestion] = useState(0)

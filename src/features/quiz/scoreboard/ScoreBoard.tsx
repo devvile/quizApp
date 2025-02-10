@@ -1,6 +1,6 @@
 "use client"
 import { Button } from "@/components/ui/button"
-import { ScoreDisplay } from "./ScoreDisplay"
+import { ScoreDisplay } from "./components/ScoreDisplay"
 import { Layout } from "@/components/Layout"
 
 interface ScoreBoardProps {

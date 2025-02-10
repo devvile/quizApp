@@ -1,4 +1,4 @@
-import { Category } from "@/components/Categories/Categories"
+import { Category } from "@/types/Categories"
 
 export const categories: Category[] = [
     { id: "react", name: "React" },
